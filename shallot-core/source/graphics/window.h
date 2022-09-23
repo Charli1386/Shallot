@@ -3,16 +3,24 @@
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
 #include<GL/gl.h>
-//#include<GL/glew.h>
+
+#define MAX_KEYS 1024
+#define MAX_BUTTONS 32
 
 namespace shallot { namespace graphics {
 
 	class Window{
-		private:
+		private:	// WINDOW MEMBERS
 			const char* m_Name;
 			int m_Width, m_Height;
 			GLFWwindow* m_Window;
 			bool m_Closed;
+
+		private:	// KEY MEMBERS
+			bool m_Keys[MAX_KEYS];
+			bool m_Button[MAX_BUTTONS];
+			double mX, mY;
+
 		public:
 			Window(const char* name, int width, int height);
 			~Window();
@@ -25,6 +33,7 @@ namespace shallot { namespace graphics {
 			
 		private:
 			bool init();
+			friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	};
 
 }}

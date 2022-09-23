@@ -4,12 +4,16 @@
 namespace shallot { namespace graphics {
 
 	void windowResizeCallback(GLFWwindow *window, int height, int width);
+	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	
 	Window::Window(const char* name, int width, int height){
 		m_Name = name;
 		m_Width = width;
 		m_Height = height;
 		if(!init()) glfwTerminate();
+
+		m_Keys[MAX_KEYS] = {false};
+		m_Button[MAX_BUTTONS] = {false};
 	}
 
 	Window::~Window() {
@@ -44,19 +48,34 @@ namespace shallot { namespace graphics {
 		}
 
 		glfwMakeContextCurrent(m_Window);
+		glfwSetWindowUserPointer(m_Window, this);
 		glfwSetWindowSizeCallback(m_Window, windowResizeCallback);
+		glfwSetKeyCallback(m_Window, key_callback);
 
 		if(glewInit() != GLEW_OK){
 			std::cout << "Could not initialize GLEW" << std::endl;
 			return false;
 		}
-
+		std::cout << glGetString(GL_VERSION) << std::endl;
 		return true;
 	}
 
 	void windowResizeCallback(GLFWwindow *window, int height, int width){
 		glViewport(0, 0, width, height);
 	}
+
+	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
+		Window* INSTANCE = (Window*) glfwGetWindowUserPointer(window);
+		INSTANCE->m_Keys[key] = true;
+
+		if(action == GLFW_PRESS) std::cout << "Key: " << key << std::endl; 
+		
+			
+
+		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+			glfwSetWindowShouldClose(window, GLFW_TRUE);
+	}
+
 
 
 }}
