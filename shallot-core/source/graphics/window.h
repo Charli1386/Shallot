@@ -1,6 +1,9 @@
 #pragma once
 
+#include<GL/glew.h>
 #include<GLFW/glfw3.h>
+#include<GL/gl.h>
+//#include<GL/glew.h>
 
 namespace shallot { namespace graphics {
 
@@ -13,12 +16,15 @@ namespace shallot { namespace graphics {
 		public:
 			Window(const char* name, int width, int height);
 			~Window();
+			void clear() const;
+			void update();
 			bool closed();
-			void update() const;
 
+			inline int getWidth() const { return m_Width; }
+			inline int getHeight() const { return m_Height; }
+			
 		private:
 			bool init();
-
 	};
 
 }}

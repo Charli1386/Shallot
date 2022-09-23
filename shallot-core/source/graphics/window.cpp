@@ -2,6 +2,8 @@
 #include <iostream>
 
 namespace shallot { namespace graphics {
+
+	void windowResizeCallback(GLFWwindow *window, int height, int width);
 	
 	Window::Window(const char* name, int width, int height){
 		m_Name = name;
@@ -12,15 +14,20 @@ namespace shallot { namespace graphics {
 
 	Window::~Window() {
 		glfwTerminate();
-	} 
+	}
 
-	void Window::update() const {
+	void Window::clear() const{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	void Window::update() {
 		glfwPollEvents();
+		//glfwGetFramebufferSize(m_Window, &m_Width, &m_Height); //resize
 		glfwSwapBuffers(m_Window);
 	}
 
 	bool Window::closed(){
-		return glfwWindowShouldClose(m_Window);
+		return glfwWindowShouldClose(m_Window) == 1;
 	}
 
 	bool Window::init(){
@@ -37,7 +44,18 @@ namespace shallot { namespace graphics {
 		}
 
 		glfwMakeContextCurrent(m_Window);
+		glfwSetWindowSizeCallback(m_Window, windowResizeCallback);
+
+		if(glewInit() != GLEW_OK){
+			std::cout << "Could not initialize GLEW" << std::endl;
+			return false;
+		}
+
 		return true;
+	}
+
+	void windowResizeCallback(GLFWwindow *window, int height, int width){
+		glViewport(0, 0, width, height);
 	}
 
 
