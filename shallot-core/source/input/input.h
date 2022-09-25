@@ -24,6 +24,30 @@ namespace shallot { namespace input {
 
 	};
 
+	class Mouse{
+		private:
+			static Mouse m_Instance;
+			bool m_Buttons[MAX_BUTTONS];
+			double mX, mY;
+		
+		private:
+			Mouse(){
+				m_Buttons[MAX_BUTTONS] = {0}; 
+			}
+
+		public:
+			static Mouse& getInstance();
+			
+			inline double getX() const { return mX; }
+			inline double getY() const { return mY; }
+			inline void setX(double X) { mX = X; }
+			inline void setY(double Y) { mY = Y; }
+
+			inline void setButtonState(int button, bool state) { m_Buttons[button] = state; }
+			inline bool nthButtonPressed(int button) const { return m_Buttons[button]; } 
+
+	};
+
 
 
 }}

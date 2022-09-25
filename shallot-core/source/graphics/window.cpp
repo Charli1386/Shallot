@@ -7,6 +7,8 @@ namespace shallot { namespace graphics {
 
 	void windowResizeCallback(GLFWwindow *window, int width, int height);
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	void on_mouse_move(GLFWwindow* window, double xpos, double ypos);
+	void on_mouse_press(GLFWwindow* window, int button, int action, int mods);
 	
 	Window::Window(const char* name, int width, int height){
 		m_Name = name;
@@ -47,9 +49,9 @@ namespace shallot { namespace graphics {
 		}
 
 		glfwMakeContextCurrent(m_Window);
-		glfwSetWindowUserPointer(m_Window, this);
 		glfwSetWindowSizeCallback(m_Window, windowResizeCallback);
 		glfwSetKeyCallback(m_Window, key_callback);
+		glfwSetCursorPosCallback(m_Window, on_mouse_move);
 
 		if(glewInit() != GLEW_OK){
 			std::cout << "Could not initialize GLEW" << std::endl;
@@ -73,6 +75,18 @@ namespace shallot { namespace graphics {
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 			glfwSetWindowShouldClose(window, GLFW_TRUE);
 	}
+
+	void on_mouse_move(GLFWwindow* window, double xpos, double ypos){
+		input::Mouse& mouse = input::Mouse::getInstance();
+		mouse.setX(xpos); mouse.setY(ypos);
+
+		std::cout << "x: " << mouse.getX() << " y: " << mouse.getY() << std::endl;
+	}
+
+	void on_mouse_press(GLFWwindow* window, int button, int action, int mods){
+		input::Mouse::getInstance().setButtonState(button, action != GLFW_RELEASE);
+	}
+
 
 
 
