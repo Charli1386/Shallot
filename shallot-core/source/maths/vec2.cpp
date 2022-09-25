@@ -40,19 +40,19 @@ namespace shallot { namespace maths {
 		return *this;
 	}
 
-	vec2& operator+(vec2& left, vec2& right){
+	vec2& operator+(vec2 left, vec2& right){
 		return left.add(right);
 	}
 
-	vec2& operator-(vec2& left, vec2& right){
+	vec2& operator-(vec2 left, vec2& right){
 		return left.sub(right);
 	}
 
-	vec2& operator*(vec2& left, vec2& right){
+	vec2& operator*(vec2 left, vec2& right){
 		return left.mul(right);
 	}
 
-	vec2& operator/(vec2& left, vec2& right){
+	vec2& operator/(vec2 left, vec2& right){
 		return left.div(right);
 	}
 

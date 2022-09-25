@@ -1,14 +1,11 @@
 #include "graphics/window.h"
-#include "maths/vec2.h"
-#include "maths/vec3.h"
-#include "maths/vec4.h"
-
+#include "maths/maths.h"
 
 #include "../headers/shalhz.h"
 
 #define DEBUG
 
-int main(void)
+int main()
 {
 
 	using namespace shallot;

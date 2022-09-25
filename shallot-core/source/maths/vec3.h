@@ -15,10 +15,10 @@ namespace shallot { namespace maths {
 		vec3& mul(const vec3& other);
 		vec3& div(const vec3& other);
 
-		friend vec3& operator+(vec3& left, vec3& right);
-		friend vec3& operator-(vec3& left, vec3& right);
-		friend vec3& operator*(vec3& left, vec3& right);
-		friend vec3& operator/(vec3& left, vec3& right);
+		friend vec3& operator+(vec3 left, vec3& right);
+		friend vec3& operator-(vec3 left, vec3& right);
+		friend vec3& operator*(vec3 left, vec3& right);
+		friend vec3& operator/(vec3 left, vec3& right);
 		
 		void operator=(vec3& other);
 
