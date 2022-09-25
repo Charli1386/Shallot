@@ -1,4 +1,5 @@
 #include "graphics/window.h"
+
 #include "../headers/shalhz.h"
 
 #define nDEBUG

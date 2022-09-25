@@ -1,4 +1,6 @@
 #include "window.h"
+#include "../input/input.h"
+
 #include <iostream>
 
 namespace shallot { namespace graphics {
@@ -65,8 +67,7 @@ namespace shallot { namespace graphics {
 	}
 
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
-		Window* INSTANCE = (Window*) glfwGetWindowUserPointer(window);
-		INSTANCE->m_Keys[key] = true;
+		input::Keyboard::getInstance().setKeyState(key, action != GLFW_RELEASE);
 
 		if(action == GLFW_PRESS) std::cout << "Key: " << key << std::endl; 
 		
