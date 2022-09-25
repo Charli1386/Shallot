@@ -21,6 +21,7 @@ int main(void)
 	
 	while(!window.closed()){
 		window.clear();
+		
 #ifndef DEBUG
 		//std::cout << "h: " << window.getHeight() << " w: " << window.getWidth() << std::endl;
 		glBegin(GL_QUADS);

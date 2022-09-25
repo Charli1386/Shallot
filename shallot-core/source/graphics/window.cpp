@@ -52,6 +52,7 @@ namespace shallot { namespace graphics {
 		glfwSetWindowSizeCallback(m_Window, windowResizeCallback);
 		glfwSetKeyCallback(m_Window, key_callback);
 		glfwSetCursorPosCallback(m_Window, on_mouse_move);
+		glfwSetMouseButtonCallback(m_Window, on_mouse_press);
 
 		if(glewInit() != GLEW_OK){
 			std::cout << "Could not initialize GLEW" << std::endl;
@@ -85,6 +86,7 @@ namespace shallot { namespace graphics {
 
 	void on_mouse_press(GLFWwindow* window, int button, int action, int mods){
 		input::Mouse::getInstance().setButtonState(button, action != GLFW_RELEASE);
+		std::cout << "Pressed" << std::endl;
 	}
 
 

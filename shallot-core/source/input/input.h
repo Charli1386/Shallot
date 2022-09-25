@@ -44,7 +44,7 @@ namespace shallot { namespace input {
 			inline void setY(double Y) { mY = Y; }
 
 			inline void setButtonState(int button, bool state) { m_Buttons[button] = state; }
-			inline bool nthButtonPressed(int button) const { return m_Buttons[button]; } 
+			inline bool nthButtonPressed(int button) const { return m_Buttons[button]; }
 
 	};
 
