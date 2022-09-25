@@ -33,6 +33,7 @@ namespace shallot { namespace graphics {
 			
 		private:
 			bool init();
+			friend void windowResizeCallback(GLFWwindow *window, int height, int width);
 			friend void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	};
 

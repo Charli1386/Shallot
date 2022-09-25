@@ -3,7 +3,7 @@
 
 namespace shallot { namespace graphics {
 
-	void windowResizeCallback(GLFWwindow *window, int height, int width);
+	void windowResizeCallback(GLFWwindow *window, int width, int height);
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	
 	Window::Window(const char* name, int width, int height){
@@ -60,7 +60,7 @@ namespace shallot { namespace graphics {
 		return true;
 	}
 
-	void windowResizeCallback(GLFWwindow *window, int height, int width){
+	void windowResizeCallback(GLFWwindow *window, int width, int height){
 		glViewport(0, 0, width, height);
 	}
 
