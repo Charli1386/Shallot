@@ -1,4 +1,6 @@
 #include "graphics/window.h"
+#include "maths/vec2.h"
+
 
 #include "../headers/shalhz.h"
 
@@ -9,6 +11,7 @@ int main(void)
 
 	using namespace shallot;
 	using namespace graphics;
+	using namespace maths;
 
 	Window window("Sample window", 940, 500);
 
@@ -18,6 +21,10 @@ int main(void)
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
+	vec2 vector(1.0f, 1.0f);
+	vector.add(vec2(3.5f, 7.5f));
+
+	std::cout << vector << std::endl;
 	
 	while(!window.closed()){
 		window.clear();
