@@ -13,9 +13,6 @@ namespace shallot { namespace graphics {
 		m_Width = width;
 		m_Height = height;
 		if(!init()) glfwTerminate();
-
-		m_Keys[MAX_KEYS] = {false};
-		m_Button[MAX_BUTTONS] = {false};
 	}
 
 	Window::~Window() {

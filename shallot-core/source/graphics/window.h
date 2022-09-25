@@ -16,11 +16,6 @@ namespace shallot { namespace graphics {
 			GLFWwindow* m_Window;
 			bool m_Closed;
 
-		private:	// KEY MEMBERS
-			bool m_Keys[MAX_KEYS];
-			bool m_Button[MAX_BUTTONS];
-			double mX, mY;
-
 		public:
 			Window(const char* name, int width, int height);
 			~Window();
