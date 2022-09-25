@@ -57,8 +57,32 @@ namespace shallot { namespace maths {
 	}
 
 	vec2& vec2::operator+=(vec2& other){
-		*this = *this + other;
-		return *this;
+		return add(other);
+	}
+
+	vec2& vec2::operator-=(vec2& other){
+		return sub(other);
+	}
+
+	vec2& vec2::operator*=(vec2& other){
+		return mul(other);
+	}
+
+	vec2& vec2::operator/=(vec2& other){
+		return div(other);
+	}
+
+	void vec2::operator=(vec2& other){
+		x = other.x;
+		y = other.y;
+	}
+
+	bool vec2::operator==(const vec2& other){
+		return x == other.x && y == other.y;
+	}
+
+	bool vec2::operator!=(const vec2& other){
+		return x != other.x && y != other.y;
 	}
 
 

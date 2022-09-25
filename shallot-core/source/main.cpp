@@ -1,10 +1,12 @@
 #include "graphics/window.h"
 #include "maths/vec2.h"
+#include "maths/vec3.h"
+#include "maths/vec4.h"
 
 
 #include "../headers/shalhz.h"
 
-#define nDEBUG
+#define DEBUG
 
 int main(void)
 {
@@ -21,15 +23,10 @@ int main(void)
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
-	vec2 vector(1.0f, 1.0f);
-	vector.add(vec2(3.5f, 7.5f));
-
-	std::cout << vector << std::endl;
-	
 	while(!window.closed()){
 		window.clear();
 		
-#ifndef DEBUG
+#ifdef DEBUG
 		//std::cout << "h: " << window.getHeight() << " w: " << window.getWidth() << std::endl;
 		glBegin(GL_QUADS);
 		glVertex2f(-0.5f, -0.5f);

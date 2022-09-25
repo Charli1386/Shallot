@@ -68,10 +68,10 @@ namespace shallot { namespace graphics {
 
 	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
 		input::Keyboard::getInstance().setKeyState(key, action != GLFW_RELEASE);
-
-		if(action == GLFW_PRESS) std::cout << "Key: " << key << std::endl; 
 		
-			
+		#ifdef DEBUG
+		if(action == GLFW_PRESS) std::cout << "Key: " << key << std::endl; 
+		#endif
 
 		if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 			glfwSetWindowShouldClose(window, GLFW_TRUE);
@@ -80,13 +80,19 @@ namespace shallot { namespace graphics {
 	void on_mouse_move(GLFWwindow* window, double xpos, double ypos){
 		input::Mouse& mouse = input::Mouse::getInstance();
 		mouse.setX(xpos); mouse.setY(ypos);
-
+		
+		#ifdef DEBUG
 		std::cout << "x: " << mouse.getX() << " y: " << mouse.getY() << std::endl;
+		#endif
+
 	}
 
 	void on_mouse_press(GLFWwindow* window, int button, int action, int mods){
 		input::Mouse::getInstance().setButtonState(button, action != GLFW_RELEASE);
+		
+		#ifdef DEBUG
 		std::cout << "Pressed" << std::endl;
+		#endif
 	}
 
 
