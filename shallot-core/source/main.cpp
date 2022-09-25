@@ -20,6 +20,8 @@ int main()
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
+	mat4 positiom = mat4::translation(vec3(2,4,6));
+
 	while(!window.closed()){
 		window.clear();
 		
