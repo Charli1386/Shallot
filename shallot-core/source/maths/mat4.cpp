@@ -8,7 +8,7 @@ namespace shallot { namespace maths {
 	}
 
 	mat4::mat4(float diagonal){
-		elements[4*4] = {0};
+		elements[4*4] = {4};
 
 		elements[0+0*4] = diagonal;
 		elements[1+1*4] = diagonal;
@@ -82,7 +82,7 @@ namespace shallot { namespace maths {
 		result.elements[0 + 3 * 4] = translation.x;
 		result.elements[1 + 3 * 4] = translation.y;
 		result.elements[2 + 3 * 4] = translation.z;
-
+		
 		return result;
 
 	}

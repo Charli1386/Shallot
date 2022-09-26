@@ -16,11 +16,13 @@ int main()
 
 	glClearColor(0.2f, 0.5f, 0.8f, 1.0f);
 
-	GLuint vao;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	mat4 position = mat4::translation(vec3(4,3,2));
 
-	mat4 positiom = mat4::translation(vec3(2,4,6));
+	position *= mat4::identity();
+
+	vec4 column = position.columns[3];
+
+	std::cout << column << std::endl;
 
 	while(!window.closed()){
 		window.clear();
@@ -33,8 +35,6 @@ int main()
 		glVertex2f(0.5f, 0.5f);
 		glVertex2f(0.5f, -0.5f);
 		glEnd();
-#else
-		glDrawArrays(GL_ARRAY_BUFFER, 0, 0);
 #endif
 		window.update();
 	}
