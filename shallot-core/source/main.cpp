@@ -14,28 +14,18 @@ int main()
 
 	Window window("Sample window", 940, 500);
 
-	glClearColor(0.2f, 0.5f, 0.8f, 1.0f);
-
-	mat4 position = mat4::translation(vec3(4,3,2));
-
-	position *= mat4::identity();
-
-	vec4 column = position.columns[3];
-
-	std::cout << column << std::endl;
-
-	std::cout << position << std::endl;
+	glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
 
 	while(!window.closed()){
 		window.clear();
 		
 #ifdef DEBUG
 		//std::cout << "h: " << window.getHeight() << " w: " << window.getWidth() << std::endl;
-		glBegin(GL_QUADS);
+		glBegin(GL_TRIANGLES);
 		glVertex2f(-0.5f, -0.5f);
 		glVertex2f(-0.5f, 0.5f);
 		glVertex2f(0.5f, 0.5f);
-		glVertex2f(0.5f, -0.5f);
+		//glVertex2f(0.5f, -0.5f);
 		glEnd();
 #endif
 		window.update();
