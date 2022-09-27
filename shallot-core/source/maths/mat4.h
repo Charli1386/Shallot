@@ -22,7 +22,8 @@ namespace shallot { namespace maths {
 		mat4& multiply(const mat4& other);
 		friend mat4& operator*(const mat4& other);
 		mat4& operator*=(const mat4& other);
- 
+		friend std::ostream& operator<<(std::ostream& stream, const mat4& matrix);
+
 		static mat4 orthographic(float left, float right, float bot, float top, float near, float far); // Ortho mat -> projection matrix, farther things will not be smaller (not scaled down)
 		static mat4 perspective(float fov, float aspectRatio, float near, float far);
 

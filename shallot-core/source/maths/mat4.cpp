@@ -43,6 +43,20 @@ namespace shallot { namespace maths {
 		return multiply(other);
 	}
 
+	std::ostream& operator<<(std::ostream& stream, const mat4& matrix){
+		stream << "mat4:" << std::endl;
+		for(int i=0; i<4; ++i){
+			stream << "[ ";
+			for(int j=0; j<4; ++j){
+				if(j == 3) stream << matrix.elements[i+j*4] << " ";
+				else stream << matrix.elements[i+j*4] << ", ";
+			}
+			stream << "]\n";
+		}
+		return stream;
+	}
+
+
 	mat4 mat4::orthographic(float left, float right, float bot, float top, float near, float far){
 		mat4 result(1.0f);
 

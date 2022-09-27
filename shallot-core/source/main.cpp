@@ -24,6 +24,8 @@ int main()
 
 	std::cout << column << std::endl;
 
+	std::cout << position << std::endl;
+
 	while(!window.closed()){
 		window.clear();
 		
