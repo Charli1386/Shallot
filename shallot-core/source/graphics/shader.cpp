@@ -20,8 +20,11 @@ namespace shallot { namespace graphics {
 		GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
 		GLuint frag = glCreateShader(GL_FRAGMENT_SHADER);
 
-		const char* vertexSource = read_file(m_vertexPath).c_str();
-		const char* fragSource = read_file(m_fragPath).c_str();
+		std::string vertexSourceString = read_file(m_vertexPath);
+		std::string fragSourceString = read_file(m_fragPath);
+
+		const char* vertexSource = vertexSourceString.c_str();
+		const char* fragSource = fragSourceString.c_str();
 
 		glShaderSource(vertex, 1, &vertexSource, NULL);
 		glCompileShader(vertex);
@@ -34,6 +37,7 @@ namespace shallot { namespace graphics {
 			std::vector<char> error(length);
 			glGetShaderInfoLog(vertex, length, &length, &error[0]);
 			std::cerr << &error[0] << std::endl;
+			std::cout << "Shader build fail..." << std::endl;
 			glDeleteShader(vertex);
 			return 0;
 		}
@@ -48,6 +52,7 @@ namespace shallot { namespace graphics {
 			std::vector<char> error(length);
 			glGetShaderInfoLog(frag, length, &length, &error[0]);
 			std::cerr << &error[0] << std::endl;
+			std::cout << "Shader Fragment build fail..." << std::endl;
 			glDeleteShader(frag);
 			return 0;
 		}
