@@ -1,7 +1,6 @@
 #include "graphics/window.h"
 #include "graphics/shader.h"
 #include "maths/maths.h"
-#include "utils/fileutils.h"
 
 #include "../headers/shalhz.h"
 
@@ -18,6 +17,8 @@ int main()
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
+
+	Shader shader("shaders/basic.vert", "shaders/basic.frag");
 
 	while(!window.closed()){
 		window.clear();

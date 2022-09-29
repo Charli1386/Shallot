@@ -1,8 +1,10 @@
-#pragma once
+#ifndef SHALLOT_CORE_SHADER_H
+#define SHALLOT_CORE_SHADER_H
 
-#include "../utils/fileutils.h"
 #include <GL/glew.h>
 #include <vector>
+#include <string>
+#include <iostream>
 
 namespace shallot { namespace graphics {
 
@@ -25,3 +27,5 @@ namespace shallot { namespace graphics {
 	};
 
 }}
+
+#endif

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef SHALLOT_CORE_FILE_READER
+#define SHALLOT_CORE_FILE_READER
+
 
 #include<string>
 #include<cstring>
@@ -22,3 +24,5 @@ namespace shallot {
 	}
 
 }
+
+#endif

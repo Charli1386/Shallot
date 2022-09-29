@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SHALLOT_CORE_WINDOW_H
+#define SHALLOT_CORE_WINDOW_H
 
 #include<GL/glew.h>
 #include<GLFW/glfw3.h>
@@ -33,3 +34,5 @@ namespace shallot { namespace graphics {
 	};
 
 }}
+
+#endif

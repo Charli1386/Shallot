@@ -1,4 +1,5 @@
 #include "shader.h"
+#include "../utils/fileutils.h"
 
 namespace shallot { namespace graphics {
 
@@ -10,6 +11,10 @@ namespace shallot { namespace graphics {
 		
 	}
 
+	Shader::~Shader(){
+		glDeleteProgram(m_ShaderID);
+	}
+
 	GLuint Shader::load(){
 		GLuint program = glCreateProgram(); // create shader program
 		GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
@@ -18,14 +23,14 @@ namespace shallot { namespace graphics {
 		const char* vertexSource = read_file(m_vertexPath).c_str();
 		const char* fragSource = read_file(m_fragPath).c_str();
 
-		glShaderSource(vertex, 1, &vertexSource.c_str(), NULL);
+		glShaderSource(vertex, 1, &vertexSource, NULL);
 		glCompileShader(vertex);
 
 		GLint result;
 		glGetShaderiv(vertex, GL_COMPILE_STATUS, &result);
 		if(result == GL_FALSE){
 			GLint length;
-			glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length) 
+			glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length); 
 			std::vector<char> error(length);
 			glGetShaderInfoLog(vertex, length, &length, &error[0]);
 			std::cerr << &error[0] << std::endl;
@@ -33,14 +38,13 @@ namespace shallot { namespace graphics {
 			return 0;
 		}
 
-		glShaderSource(frag, 1, &fragSource.c_str(), NULL);
+		glShaderSource(frag, 1, &fragSource, NULL);
 		glCompileShader(frag);
 
-		GLint result;
 		glGetShaderiv(frag, GL_COMPILE_STATUS, &result);
 		if(result == GL_FALSE){
 			GLint length;
-			glGetShaderiv(frag, GL_INFO_LOG_LENGTH, &length) 
+			glGetShaderiv(frag, GL_INFO_LOG_LENGTH, &length); 
 			std::vector<char> error(length);
 			glGetShaderInfoLog(frag, length, &length, &error[0]);
 			std::cerr << &error[0] << std::endl;
@@ -61,11 +65,11 @@ namespace shallot { namespace graphics {
 	}
 
 	void Shader::enable() const{
-		GlUseProgram(m_ShaderID);
+		glUseProgram(m_ShaderID);
 	}
 
 	void Shader::disable() const{
-		GlUseProgram(0);
+		glUseProgram(0);
 	}
 
 }}

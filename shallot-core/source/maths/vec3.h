@@ -1,4 +1,3 @@
-#pragma once
 #include<iostream>
 
 #ifndef SHALLOT_CORE_MATHS_VEC3_H

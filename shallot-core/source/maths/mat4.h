@@ -1,6 +1,5 @@
-#pragma once
-
-#define _USE_MATH_DEFINES
+#ifndef SHALLOT_CORE_MAT4_H
+#define SHALLOT_CORE_MAT4_H
 
 #include "maths.h"
 
@@ -34,3 +33,5 @@ namespace shallot { namespace maths {
 	};
 
 }}
+
+#endif
