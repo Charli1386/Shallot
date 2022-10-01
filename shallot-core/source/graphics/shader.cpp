@@ -7,8 +7,7 @@ namespace shallot { namespace graphics {
 		m_vertexPath = vertexPath;
 		m_fragPath = fragPath;
 
-		m_ShaderID = load();
-		
+		m_ShaderID = load();		
 	}
 
 	Shader::~Shader(){
@@ -76,5 +75,26 @@ namespace shallot { namespace graphics {
 	void Shader::disable() const{
 		glUseProgram(0);
 	}
+
+	GLint Shader::getUniformLocation(const GLchar* name){
+		return glGetUniformLocation(m_ShaderID, name);
+	}
+
+	void Shader::setUniform1i(const char* name, int value){
+		glUniform1i(getUniformLocation(name), value);
+	}
+	void Shader::setUniform2f(const char* name, const maths::vec2& vector){
+		glUniform2f(getUniformLocation(name), vector.x, vector.y);
+	}
+	void Shader::setUniform3f(const char* name, const maths::vec3& vector){
+		glUniform3f(getUniformLocation(name), vector.x, vector.y, vector.z);
+	}
+	void Shader::setUniform4f(const char* name, const maths::vec4& vector){
+		glUniform4f(getUniformLocation(name), vector.x, vector.y, vector.z, vector.w);
+	}
+	void Shader::setUniformMat4(const char* name, const maths::mat4& matrix){
+		glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, matrix.elements);
+	}
+
 
 }}
