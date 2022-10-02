@@ -50,23 +50,37 @@ int main(int argc, char* argv[])
 		2, 3, 0
 	};
 
-	VertexArray vao;
-	Buffer* vbo = new Buffer(vertices, 4 * 3, 3);
+	GLfloat colorB[] = {
+		0.0f, 0.8f, 0.8f, 1.0f,
+		0.0f, 0.8f, 0.8f, 1.0f,
+		0.0f, 0.8f, 0.8f, 1.0f,
+		0.0f, 0.8f, 0.8f, 1.0f
+	};
+
+	GLfloat colorA[] = {
+		1.0f, 0.8f, 0.8f, 1.0f,
+		1.0f, 0.8f, 0.8f, 1.0f,
+		1.0f, 0.8f, 0.8f, 1.0f,
+		1.0f, 0.8f, 0.8f, 1.0f
+	};
+
+	VertexArray rect1, rect2;
 	IndexBuffer ibo(indices, 6);
 
-	vao.addBuffer(vbo, 0);
+	rect1.addBuffer(new Buffer(vertices, 4*3, 3), 0);
+	rect1.addBuffer(new Buffer(colorA, 4*4, 4), 1);
+	
+	rect2.addBuffer(new Buffer(vertices, 4*3, 3), 0);
+	rect2.addBuffer(new Buffer(colorB, 4*4, 4), 1);
 
 #endif
 	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
 	
-
 	Shader shader("shaders/basic.vert", "shaders/basic.frag");
 	shader.enable();
 	shader.setUniformMat4("pr_matrix", ortho);
-	shader.setUniformMat4("ml_matrix", mat4::translation(vec3(4, 3, 0)));
-
 	shader.setUniform2f("light_pos", vec2(4.0f, 1.5f));
-	shader.setUniform4f("color", vec4(0.2f, 0.3f, 0.8f, 1.0f));
+	//shader.setUniform4f("color", vec4(0.2f, 0.3f, 0.8f, 1.0f));
 
 	input::Mouse& mouse = input::Mouse::getInstance();
 
@@ -79,11 +93,19 @@ int main(int argc, char* argv[])
 #ifdef nDEBUG
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 #else
-		vao.bind();
+		rect1.bind();
 		ibo.bind();
+		shader.setUniformMat4("ml_matrix", mat4::translation(vec3(4, 3, 0)));
 		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
+		ibo.unbind();
+		rect1.unbind();
 
-		vao.unbind();
+		rect2.bind();
+		ibo.bind();
+		shader.setUniformMat4("ml_matrix", mat4::translation(vec3(0, 0, 0)));
+		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
+		ibo.unbind();
+		rect2.unbind();
 
 #endif		
 		window.update();

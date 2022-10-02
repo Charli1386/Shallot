@@ -16,6 +16,7 @@ namespace shallot {  namespace graphics {
 			void unbind() const;
 			
 			inline GLuint getCompCount() const { return m_CompCount; };
+			inline GLuint getBufferID() const { return m_BufferID; }
 
 	};
 }}
