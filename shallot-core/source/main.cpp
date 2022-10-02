@@ -1,6 +1,8 @@
 #include "graphics/window.h"
 #include "graphics/shader.h"
+#include "input/input.h"
 #include "maths/maths.h"
+#include "graphics/Buffers/buffer.h"
 
 #include "../headers/shalhz.h"
 
@@ -16,7 +18,7 @@ int main(int argc, char* argv[])
 	using namespace maths;
 
 	Window window("Sample window", 940, 500);
-	glClearColor(0.5f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	GLfloat vertices[] = {
 		4, 3, 0,
@@ -42,11 +44,18 @@ int main(int argc, char* argv[])
 	shader.setUniformMat4("pr_matrix", ortho);
 	//shader.setUniformMat4("ml_matrix", mat4::translation(vec3(4, 3, 0)));
 
-	shader.setUniform2f("light_pos", vec2(12.0f, 5.0f));
+	shader.setUniform2f("light_pos", vec2(0.0f, 1.5f));
 	shader.setUniform4f("color", vec4(0.2f, 0.3f, 0.8f, 1.0f));
+
+	input::Mouse& mouse = input::Mouse::getInstance();
 
 	while(!window.closed()){
 		window.clear();
+		double x = mouse.getX(), y=mouse.getY();
+
+		shader.setUniform2f("light_pos", vec2((float)(x*16.0f/960.0f), (float)(9.0f-y * 9.0f/540.0f)));
+		
+
 		glDrawArrays(GL_TRIANGLES, 0, 6);		
 		window.update();
 	#ifdef nDEBUG
