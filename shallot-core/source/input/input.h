@@ -40,6 +40,7 @@ namespace shallot { namespace input {
 			
 			inline double getX() const { return mX; }
 			inline double getY() const { return mY; }
+			inline void getMousePosition(double &x, double &y) { x = mX, y = mY; }
 			inline void setX(double X) { mX = X; }
 			inline void setY(double Y) { mY = Y; }
 
