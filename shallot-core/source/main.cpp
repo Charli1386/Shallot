@@ -4,8 +4,12 @@
 
 #include "../headers/shalhz.h"
 
-int main()
+#define DEBUG
+
+int main(int argc, char* argv[])
 {
+
+	float f = 0;
 
 	using namespace shallot;
 	using namespace graphics;
@@ -36,7 +40,6 @@ int main()
 	Shader shader("shaders/basic.vert", "shaders/basic.frag");
 	shader.enable();
 	shader.setUniformMat4("pr_matrix", ortho);
-	//shader.setUniformMat4("ml_matrix", mat4::rotation(45.0, vec3(0, 0, 1)));
 	//shader.setUniformMat4("ml_matrix", mat4::translation(vec3(4, 3, 0)));
 
 	shader.setUniform2f("light_pos", vec2(12.0f, 5.0f));
@@ -46,6 +49,11 @@ int main()
 		window.clear();
 		glDrawArrays(GL_TRIANGLES, 0, 6);		
 		window.update();
+	#ifdef nDEBUG
+		std::cin >> f;
+		std::cout << "Rotating " << f << " degrees." << std::endl;
+		shader.setUniformMat4("ml_matrix", mat4::rotation(f, vec3(0, 0, 1)));
+	#endif
 	}
 
     return 0;
