@@ -25,8 +25,10 @@ namespace shallot { namespace graphics {
       
     }
 
+    /* MGA HAYOP KAYONG NASA BABA 5 HOURS AKONG NAGDEDEBUG SA INYO TAENA NYO*/
+
     void VertexArray::bind() const{
-        glBindVertexArray(m_ArrayID); // <-  HAYOP KA
+        glBindVertexArray(m_ArrayID); 
     }
 
     void VertexArray::unbind() const {

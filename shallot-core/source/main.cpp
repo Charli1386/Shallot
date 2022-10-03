@@ -64,7 +64,14 @@ int main(int argc, char* argv[])
 		1.0f, 0.8f, 0.8f, 1.0f
 	};
 
-	VertexArray rect1, rect2;
+	GLfloat colorC[] = {
+		0.0f, 0.8f, 0.2f, 1.0f,
+		0.0f, 0.8f, 0.2f, 1.0f,
+		0.0f, 0.8f, 0.2f, 1.0f,
+		0.0f, 0.8f, 0.2f, 1.0f
+	};
+
+	VertexArray rect1, rect2, rect3, rect4, rect5;
 	IndexBuffer ibo(indices, 6);
 
 	rect1.addBuffer(new Buffer(vertices, 4*3, 3), 0);
@@ -72,6 +79,16 @@ int main(int argc, char* argv[])
 	
 	rect2.addBuffer(new Buffer(vertices, 4*3, 3), 0);
 	rect2.addBuffer(new Buffer(colorB, 4*4, 4), 1);
+
+	rect3.addBuffer(new Buffer(vertices, 4*3, 3), 0);
+	rect3.addBuffer(new Buffer(colorC, 4*4, 4), 1);
+
+	rect4.addBuffer(new Buffer(vertices, 4*3, 3), 0);
+	rect4.addBuffer(new Buffer(colorC, 4*4, 4), 1);
+
+	rect5.addBuffer(new Buffer(vertices, 4*3, 3), 0);
+	rect5.addBuffer(new Buffer(colorB, 4*4, 4), 1);
+
 
 #endif
 	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
@@ -106,6 +123,27 @@ int main(int argc, char* argv[])
 		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
 		ibo.unbind();
 		rect2.unbind();
+
+		rect3.bind();
+		ibo.bind();
+		shader.setUniformMat4("ml_matrix", mat4::translation(vec3(0, 6, 0)));
+		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
+		ibo.unbind();
+		rect3.unbind();
+
+		rect4.bind();
+		ibo.bind();
+		shader.setUniformMat4("ml_matrix", mat4::translation(vec3(8, 0, 0)));
+		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
+		ibo.unbind();
+		rect4.unbind();
+
+		rect5.bind();
+		ibo.bind();
+		shader.setUniformMat4("ml_matrix", mat4::translation(vec3(8, 6, 0)));
+		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
+		ibo.unbind();
+		rect5.unbind();
 
 #endif		
 		window.update();
