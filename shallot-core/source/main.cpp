@@ -6,6 +6,9 @@
 #include "graphics/Buffers/indexbuffer.h"
 #include "graphics/Buffers/vertexarray.h"
 
+#include "graphics/renderer2d.h"
+#include "graphics/shallot2drenderer.h"
+
 
 #include "../headers/shalhz.h"
 
@@ -37,7 +40,7 @@ int main(int argc, char* argv[])
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glEnableVertexAttribArray(0);
 
-#else
+
 	GLfloat vertices[] = {
 		0, 0, 0,
 		0, 3, 0,
@@ -45,16 +48,16 @@ int main(int argc, char* argv[])
 		8, 0, 0
 	};
 
+	GLfloat minVertex[] = {
+		0, 0, 0,
+		0, 3, 0,
+		3, 3, 0,
+		3, 0, 0
+	};
+
 	GLushort indices[] = {
 		0, 1, 2,
 		2, 3, 0
-	};
-
-	GLfloat colorB[] = {
-		0.0f, 0.8f, 0.8f, 1.0f,
-		0.0f, 0.8f, 0.8f, 1.0f,
-		0.0f, 0.8f, 0.8f, 1.0f,
-		0.0f, 0.8f, 0.8f, 1.0f
 	};
 
 	GLfloat colorA[] = {
@@ -64,6 +67,13 @@ int main(int argc, char* argv[])
 		1.0f, 0.8f, 0.8f, 1.0f
 	};
 
+	GLfloat colorB[] = {
+		0.0f, 0.8f, 0.8f, 1.0f,
+		0.0f, 0.8f, 0.8f, 1.0f,
+		0.0f, 0.8f, 0.8f, 1.0f,
+		0.0f, 0.8f, 0.8f, 1.0f
+	};
+
 	GLfloat colorC[] = {
 		0.0f, 0.8f, 0.2f, 1.0f,
 		0.0f, 0.8f, 0.2f, 1.0f,
@@ -71,7 +81,14 @@ int main(int argc, char* argv[])
 		0.0f, 0.8f, 0.2f, 1.0f
 	};
 
-	VertexArray rect1, rect2, rect3, rect4, rect5;
+	GLfloat colorD[] = {
+		0.5f, 0.0f, 1.0f, 1,
+		0.5f, 0.0f, 1.0f, 1,
+		0.5f, 0.0f, 1.0f, 1,
+		0.5f, 0.0f, 1.0f, 1
+	};
+
+	VertexArray rect1, rect2, rect3, rect4, rect5, square1, square2;
 	IndexBuffer ibo(indices, 6);
 
 	rect1.addBuffer(new Buffer(vertices, 4*3, 3), 0);
@@ -89,6 +106,12 @@ int main(int argc, char* argv[])
 	rect5.addBuffer(new Buffer(vertices, 4*3, 3), 0);
 	rect5.addBuffer(new Buffer(colorB, 4*4, 4), 1);
 
+	square1.addBuffer(new Buffer(minVertex, 4*4, 3), 0);
+	square1.addBuffer(new Buffer(colorD, 4*4, 4), 1);
+
+	square2.addBuffer(new Buffer(minVertex, 4*4, 3), 0);
+	square2.addBuffer(new Buffer(colorD, 4*4, 4), 1);
+#else
 
 #endif
 	mat4 ortho = mat4::orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
@@ -96,8 +119,12 @@ int main(int argc, char* argv[])
 	Shader shader("shaders/basic.vert", "shaders/basic.frag");
 	shader.enable();
 	shader.setUniformMat4("pr_matrix", ortho);
+	shader.setUniformMat4("ml_matrix", mat4::translation(vec3(4,3,0)));
+
+	Renderable2D sprite1(vec3(5,5,0), vec2(4,4), vec4(1,0,1,1), shader), sprite2(vec3(0,2,0), vec2(4,4), vec4(0,1,0,0), shader);
+	Shallot2DRenderer renderer;
+
 	shader.setUniform2f("light_pos", vec2(4.0f, 1.5f));
-	//shader.setUniform4f("color", vec4(0.2f, 0.3f, 0.8f, 1.0f));
 
 	input::Mouse& mouse = input::Mouse::getInstance();
 
@@ -106,46 +133,10 @@ int main(int argc, char* argv[])
 		double x, y;
 		mouse.getMousePosition(x, y);
 		shader.setUniform2f("light_pos", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
-		
-#ifdef nDEBUG
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-#else
-		rect1.bind();
-		ibo.bind();
-		shader.setUniformMat4("ml_matrix", mat4::translation(vec3(4, 3, 0)));
-		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
-		ibo.unbind();
-		rect1.unbind();
-
-		rect2.bind();
-		ibo.bind();
-		shader.setUniformMat4("ml_matrix", mat4::translation(vec3(0, 0, 0)));
-		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
-		ibo.unbind();
-		rect2.unbind();
-
-		rect3.bind();
-		ibo.bind();
-		shader.setUniformMat4("ml_matrix", mat4::translation(vec3(0, 6, 0)));
-		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
-		ibo.unbind();
-		rect3.unbind();
-
-		rect4.bind();
-		ibo.bind();
-		shader.setUniformMat4("ml_matrix", mat4::translation(vec3(8, 0, 0)));
-		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
-		ibo.unbind();
-		rect4.unbind();
-
-		rect5.bind();
-		ibo.bind();
-		shader.setUniformMat4("ml_matrix", mat4::translation(vec3(8, 6, 0)));
-		glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
-		ibo.unbind();
-		rect5.unbind();
-
-#endif		
+		renderer.submit(&sprite1);
+		renderer.flush();
+		renderer.submit(&sprite2);
+		renderer.flush();
 		window.update();
 	}
 
