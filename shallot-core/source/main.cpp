@@ -121,7 +121,7 @@ int main(int argc, char* argv[])
 	shader.setUniformMat4("pr_matrix", ortho);
 	shader.setUniformMat4("ml_matrix", mat4::translation(vec3(4,3,0)));
 
-	Renderable2D sprite1(vec3(5,5,0), vec2(4,4), vec4(1,0,1,1), shader), sprite2(vec3(0,2,0), vec2(4,4), vec4(0,1,0,0), shader);
+	Renderable2D sprite1(vec3(5,5,0), vec2(5,5), vec4(1,0,1,1), shader), sprite2(vec3(7,1,0), vec2(2,2), vec4(0.5f,1,1,0), shader);
 	Shallot2DRenderer renderer;
 
 	shader.setUniform2f("light_pos", vec2(4.0f, 1.5f));
@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
 		window.clear();
 		double x, y;
 		mouse.getMousePosition(x, y);
-		shader.setUniform2f("light_pos", vec2((float)(x * 16.0f / 960.0f), (float)(9.0f - y * 9.0f / 540.0f)));
+		shader.setUniform2f("light_pos", vec2((float)(x * 16.0f / window.getWidth()), (float)(9.0f - y * 9.0f / window.getHeight())));
 		renderer.submit(&sprite1);
 		renderer.flush();
 		renderer.submit(&sprite2);

@@ -1,6 +1,7 @@
 #include "window.h"
 #include "../input/input.h"
 
+#include <GLFW/glfw3.h>
 #include <iostream>
 
 namespace shallot { namespace graphics {
