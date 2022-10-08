@@ -10,6 +10,11 @@
 
 namespace shallot { namespace graphics{
 
+    struct VertexData{
+        maths::vec3 vertex;
+        maths::vec4 color;
+    };
+
     class Renderable2D{
         protected:
             maths::vec2 m_Size;

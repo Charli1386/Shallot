@@ -11,7 +11,8 @@ namespace shallot {  namespace graphics {
 
 		public:
 			Buffer(GLfloat* data, GLsizei count, GLuint compCount);
-			
+			~Buffer();
+
 			void bind() const;
 			void unbind() const;
 			

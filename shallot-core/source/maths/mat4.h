@@ -1,7 +1,8 @@
 #ifndef SHALLOT_CORE_MAT4_H
 #define SHALLOT_CORE_MAT4_H
 
-#include "maths.h"
+#include "vec3.h"
+#include "vec4.h"
 
 namespace shallot { namespace maths {
 	

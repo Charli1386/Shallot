@@ -27,7 +27,6 @@ namespace shallot { namespace graphics {
 			inline int getWidth() const { return m_Width; }
 			inline int getHeight() const { return m_Height; }
 			
-			
 		private:
 			bool init();
 			friend void windowResizeCallback(GLFWwindow *window, int height, int width);
