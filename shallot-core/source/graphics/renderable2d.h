@@ -16,7 +16,7 @@ namespace shallot { namespace graphics{
     };
 
     class Renderable2D{
-        protected:
+        public:
             maths::vec2 m_Size;
             maths::vec3 m_Position;
             maths::vec4 m_Color;
