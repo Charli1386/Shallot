@@ -9,6 +9,8 @@
 #include "graphics/renderer2d.h"
 #include "graphics/shallot2drenderer.h"
 
+#include "graphics/static_object.h"
+
 
 #include "../headers/shalhz.h"
 
@@ -121,8 +123,8 @@ int main(int argc, char* argv[])
 	shader.setUniformMat4("pr_matrix", ortho);
 	shader.setUniformMat4("ml_matrix", mat4::translation(vec3(4,3,0)));
 
-	Renderable2D sprite1(vec3(5,5,0), vec2(5,5), vec4(1,0,1,1), shader), sprite2(vec3(7,1,0), vec2(2,2), vec4(0.5f,1,1,0), shader);
-	Renderable2D sprite3(vec3(2,2,0), vec2(2,2), vec4(0.5f, 0.5f, 1.0f, 1), shader);
+	StaticObject sprite1(5, 5, 4, 8, vec4(1,0,1,1), shader);
+	StaticObject sprite3(7, 1, 8, 4, vec4(0,1,0,1), shader);
 	Shallot2DRenderer renderer;
 
 	shader.setUniform2f("light_pos", vec2(4.0f, 1.5f));
@@ -135,8 +137,6 @@ int main(int argc, char* argv[])
 		mouse.getMousePosition(x, y);
 		shader.setUniform2f("light_pos", vec2((float)(x * 16.0f / window.getWidth()), (float)(9.0f - y * 9.0f / window.getHeight())));
 		renderer.submit(&sprite1);
-		renderer.flush();
-		renderer.submit(&sprite2);
 		renderer.flush();
 		renderer.submit(&sprite3);
 		renderer.flush();
